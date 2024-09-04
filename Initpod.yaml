@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  initcontainers:
+  - name: clone-repo
+    image: alpine/git
+    command:
+      - git
+      - clone
+      - --progress
+      - https://github.com/BGLCorp/devops-interview-tests/blob/main/myfile.txt
+      - /data/myfile
+    volumeMounts:
+     - name: file
+       mountpath: '/data/myfile'
+  containers:
+  - name: myapp-container
+    image: alpine:latest
+    command: ['sh', '-c', 'cat /data/myfile/myfile.txt']
+    volumeMounts:
+    - mountPath: '/data'
+      name: temp
+  volumes:
+  - name: temp 
+    emptyDir: {}
+    
+  
