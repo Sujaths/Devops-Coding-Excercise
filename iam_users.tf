@@ -12,7 +12,7 @@ resource "aws_iam_group" "group2" {
 resource "aws_iam_group" "group3" {
   name = "group3"
 }
-
+#Create Users
 resource "aws_iam_user" "user1" {
   name = "jerome"
 }
